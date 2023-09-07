@@ -30,8 +30,6 @@ int ys, xs;  // BFS start point;
 int cntIce;
 int cntMelt = 0;
 
-vector<pair<int, int>> targets;
-
 void input() {
     cntIce = 0;
     cin >> height >> width;
@@ -59,12 +57,8 @@ void initVisited() {
 }
 
 int calSpeed() {
-    // 각 칸이 녹는 속도 계산
-    // 가장 빨리 녹는 칸이 다 녹기까지 걸리는 시간(day)을 반환
     int res = 0x7FFFFFFF;
-    // initialize visited
     initVisited();
-    // calculate by BFS
     queue<pair<int, int>> que;
     que.push({ys, xs});
     visited[ys][xs] = true;
@@ -165,7 +159,8 @@ bool isSeparated() {
                     DFS(i, j);
                     validity = 0;
                 }
-                else return true;
+                else
+                    return true;
             }
         }
     }
@@ -173,20 +168,19 @@ bool isSeparated() {
 }
 
 int main(void) {
-    int ans = 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
     int cnt = 0;
     input();
     while (cntMelt < cntIce) {
         int n = calSpeed();
         melt(n);
         cnt += n;
-        // printf("n:%d\n", n);
         if (isSeparated()) {
             cout << cnt;
             return 0;
         }
-        // prtMap();
-        // printf("==============================\n");
     }
     cout << 0;
 }
