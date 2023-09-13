@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 // 문제 링크
@@ -7,7 +8,7 @@ using namespace std;
 
 // 통나무 N개 (가로 방향)
 // 한 통나무에서 다른 통나무로 수직방향으로만 점프 가능
-// 다른 통나무 위를 지날 수 없다 << 이걸 모르겠네
+// 다른 통나무 위를 지날 수 없다
 
 // 통나무 개수 N
 // 질문의 개수 Q
@@ -19,26 +20,24 @@ using namespace std;
 
 struct Log {
     int num;
-    int x1, x2, y;
+    int x1, x2;
 
-    bool operator<( Log l ) const {
-        // ascending ordering with x1 (start point)
-        if (x1 < l.x1) {
+    bool operator<(Log l) const {
+        if (x1 <= l.x1) {
             return false;
         }
         else if (x1 == l.x1) {
-            if (x2 < l.x2) {
-                return false;
-            }
-            else if (x2 == l.x2) {
-                return y < l.y;
-            }
+            return x2 < l.x2;
         }
         return true;
     }
 };
 
 int parent[100001];
+int start[100001];
+int dest[100001];
+int N, Q;
+priority_queue<Log> logs;
 
 int Find(int n) {
     if (parent[n] == n) {
@@ -54,12 +53,12 @@ void Union(int n1, int n2) {
     int p2 = Find(n2);
 
     if (p1 != p2) {
-        parent[p1] = p2;
+        if (dest[p1] > dest[p2])
+            parent[p2] = p1;
+        else
+            parent[p1] = p2;
     }
 }
-
-int N, Q;
-priority_queue<Log> logs;
 
 int main(void) {
     cin >> N >> Q;
@@ -68,29 +67,25 @@ int main(void) {
         int x1, x2, y;
         cin >> x1 >> x2 >> y;
         parent[num] = num;
-        logs.push({num++, x1, x2, y});
-        
+        start[num] = x1;
+        dest[num] = x2;
+        logs.push({num++, x1, x2});
     }
 
-    // Union Find task
-    while (not logs.empty()) {
+    // Union
+    while (logs.size() > 1) {
         Log now = logs.top();
         logs.pop();
-
-        int num = now.num;
-        int x1 = now.x1;
-        int x2 = now.x2;
-        int y = now.y;
+        // printf("now: {%d, %d, %d, %d}\n", now.num, now.x1, now.x2, now.y);
 
         Log next = logs.top();
 
-        if (next.x1 <= x2 && next.y != y) {
-            Union(num, next.num);
-            // printf("Union %d, %d\n", num, next.num);
+        if (dest[Find(now.num)] >= start[next.num]) {
+            Union(now.num, next.num);
         }
     }
 
-
+    // Query
     for (int i = 0; i < Q; i++) {
         int start, dest;
         cin >> start >> dest;
