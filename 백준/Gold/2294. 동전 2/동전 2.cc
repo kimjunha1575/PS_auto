@@ -13,9 +13,9 @@ int coins[101];
 int dp[200000];
 
 void input() {
-    cin >> cntCoin >> target;
+    scanf("%d %d", &cntCoin, &target);
     for (int i = 1; i <= cntCoin; i++) {
-        cin >> coins[i];
+        scanf("%d\n", &coins[i]);
     }
 }
 
