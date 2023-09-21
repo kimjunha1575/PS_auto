@@ -10,10 +10,6 @@ vector<int> solution(vector<string> id_list, vector<string> report, int k) {
     map<string, set<string>> cntReported;
     map<string, set<string>> reports;
     stringstream stream;
-    for (string user_id : id_list) {
-        cntReported.insert({user_id, {}});
-        reports.insert({user_id, {}});
-    }
     for (string report_log : report) {
         stream.str(report_log + "\n");
         string from, to;
