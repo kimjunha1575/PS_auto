@@ -12,14 +12,9 @@ public class Main {
     System.out.println(N);
   }
 
-  public static boolean isAns(int N) {
-    if (isPalindrome(N) && isPrime(N))
-      return true;
-    else
-      return false;
-  }
+  private static boolean isAns(int N) { return isPalindrome(N) && isPrime(N); }
 
-  public static boolean isPrime(int N) {
+  private static boolean isPrime(int N) {
     if (N == 1)
       return false;
     for (int i = 2; i <= Math.sqrt(N); i++) {
@@ -29,13 +24,13 @@ public class Main {
     return true;
   }
 
-  public static boolean isPalindrome(int N) {
-    String str = Integer.toString(N);
-    int len = str.length();
-    for (int i = 0; i < len / 2; i++) {
-      if (str.charAt(i) != str.charAt(len - i - 1))
-        return false;
+  private static boolean isPalindrome(int N) {
+    int tmp = N;
+    int reverse = 0;
+    while (tmp > 0) {
+      reverse = reverse * 10 + tmp % 10;
+      tmp /= 10;
     }
-    return true;
+    return reverse == N;
   }
 }
