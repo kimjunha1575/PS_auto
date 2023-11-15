@@ -1,6 +1,8 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.PriorityQueue;
-import java.util.Scanner;
 
 public class Main {
 
@@ -8,10 +10,9 @@ public class Main {
 	private static int cntBus;
 	private static int st, en;
 	private static int[][] map;
-	private static Bus[] buses;
 	private static int[] path;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		init();
 		int ans = dijkstra(st, en);
 		System.out.println(ans);
@@ -55,7 +56,6 @@ public class Main {
 				Bus tmp = new Bus(now, next, ncost);
 				dist[next] = ncost;
 				path[next] = now;
-				// System.out.printf("path[%d] = %d\n", next, now);
 				pq.add(tmp);
 			}
 		}
@@ -63,27 +63,28 @@ public class Main {
 		return -1;
 	}
 
-	public static void init() {
-		Scanner sc = new Scanner(System.in);
-		cntCity = sc.nextInt();
+	public static void init() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] input;
+		cntCity = Integer.parseInt(br.readLine()); 
 		map = new int[cntCity + 1][cntCity + 1];
 		for (int[] arr : map) Arrays.fill(arr, -1);
-		cntBus = sc.nextInt();
-		buses = new Bus[cntBus + 1];
+		cntBus = Integer.parseInt(br.readLine()); 
 		path = new int[cntCity + 1];
 		Arrays.fill(path, -1);
 		for (int i = 0; i < cntBus; i++) {
 			int st, en, cost;
-			st = sc.nextInt();
-			en = sc.nextInt();
-			cost = sc.nextInt();
-			buses[i] = new Bus(st, en, cost);
+            input = br.readLine().split(" ");
+			st = Integer.parseInt(input[0]); 
+			en = Integer.parseInt(input[1]);
+			cost = Integer.parseInt(input[2]);
 			if (map[st][en] == -1) map[st][en] = cost;
             else if (map[st][en] > cost) map[st][en] = cost;
 		}
-		st = sc.nextInt();
-		en = sc.nextInt();
-		sc.close();
+        input = br.readLine().split(" ");
+		st = Integer.parseInt(input[0]);
+		en = Integer.parseInt(input[1]);
+    	br.close();
 	}
 }
 
