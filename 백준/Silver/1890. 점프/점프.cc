@@ -1,37 +1,30 @@
 #include <iostream>
 using namespace std;
 
-long long N;
+int N;
 long long board[100][100];
 long long dp[100][100];
 
 void init();
-long long top_down(long long y, long long x);
+long long top_down(int y, int x);
 
 int main(void) {
     init();
-    cout << top_down(0, 0) << "\n";
-    // for (long long i = 0; i < N; i++) {
-    //     for (long long j = 0; j < N; j++) {
-    //         prlong longf("%2d(%d) ", dp[i][j], board[i][j]);
-    //     }
-    //     prlong longf("\n");
-    // }
-            
+    cout << top_down(0, 0);
     return 0;
 }
 
 void init() {
     cin >> N;
-    for (long long i = 0; i < N; i++) {
-        for (long long j = 0; j < N; j++) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
             cin >> board[i][j];
             dp[i][j] = -1;
         }
     }
 }
 
-long long top_down(long long y, long long x) {
+long long top_down(int y, int x) {
     // 게임판을 벗어나면 0
     if (y >= N or x >= N) return 0;
     // 종점에 도착하면 1
@@ -48,7 +41,7 @@ long long top_down(long long y, long long x) {
     // 현재 칸에서의 이동거리
     long long value = board[y][x];
 
-    // 현재 칸에서 
+    // 현재 칸에서 가능한 경로 개수 = 현재 칸에서 오른쪽으로 이동한 칸에서의 경로 개수 + 아래로 이동한 칸에서의 경로 개수
     long long down = 0;
     long long right = 0;
 
@@ -59,10 +52,3 @@ long long top_down(long long y, long long x) {
     dp[y][x] = down + right;
     return dp[y][x];
 }
-
-/*
- 3  1  1  0
- 3  1  0  0
- 2  1  0  1
- 1  1  1  0
-*/
