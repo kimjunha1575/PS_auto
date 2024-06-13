@@ -14,12 +14,10 @@ int main(void) {
         int tmp;
         cin >> tmp;
         if (st.empty() || tmp > st.top()) {
-            st.push(cur++);
-            ans += "+\n";
-            while (tmp > st.top()) {
+            do {
                 st.push(cur++);
                 ans += "+\n";
-            }
+            } while (tmp > st.top());
             ans += "-\n";
             st.pop();
         } else if (tmp == st.top()) {
