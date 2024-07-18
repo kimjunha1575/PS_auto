@@ -43,17 +43,14 @@ void bfs() {
     }
 }
 
-int main(void) {
-    init();
-    bfs();
+int findMax() {
     int res = 0;
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             int tmp = box[y][x];
             if (tmp == -1) continue;
             if (tmp == 0) {
-                printf("%d\n", -1);
-                return 0;
+                return -1;
             }
             if (tmp > res) {
                 res = tmp;
@@ -61,6 +58,12 @@ int main(void) {
             }
         }
     }
-    printf("%d\n", res-1);
+    return res-1;
+}
+
+int main(void) {
+    init();
+    bfs();
+    printf("%d\n", findMax());
     return 0;
 }
