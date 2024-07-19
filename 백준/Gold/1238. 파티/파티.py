@@ -1,4 +1,4 @@
-from queue import PriorityQueue
+import heapq
 
 
 class Vertex:
@@ -13,11 +13,11 @@ class Vertex:
 
 def dijkstra1(arr, target):
     global paths
-    que = PriorityQueue()
-    que.put(Vertex(target, target, 0))
+    que = []
+    heapq.heappush(que, Vertex(target, target, 0))
     arr[target] = 0
-    while not que.empty():
-        cur_node = que.get()
+    while que:
+        cur_node = heapq.heappop(que)
         cur_town = cur_node.en
         cur_cost = cur_node.cost
         for next_town in range(N):
@@ -26,18 +26,18 @@ def dijkstra1(arr, target):
             next_cost = cur_cost + paths[cur_town][next_town]
             if next_cost >= arr[next_town]:
                 continue
-            que.put(Vertex(cur_town, next_town, next_cost))
+            heapq.heappush(que, Vertex(cur_town, next_town, next_cost))
             arr[next_town] = next_cost
     return None
 
 
 def dijkstra2(arr, target):
     global paths
-    que = PriorityQueue()
-    que.put(Vertex(target, target, 0))
+    que = []
+    heapq.heappush(que, Vertex(target, target, 0))
     arr[target] = 0
-    while not que.empty():
-        cur_node = que.get()
+    while que:
+        cur_node = heapq.heappop(que)
         cur_town = cur_node.en
         cur_cost = cur_node.cost
         for next_town in range(N):
@@ -46,7 +46,7 @@ def dijkstra2(arr, target):
             next_cost = cur_cost + paths[next_town][cur_town]
             if next_cost >= arr[next_town]:
                 continue
-            que.put(Vertex(cur_town, next_town, next_cost))
+            heapq.heappush(que, Vertex(cur_town, next_town, next_cost))
             arr[next_town] = next_cost
     return None
 
