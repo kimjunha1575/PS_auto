@@ -2,12 +2,12 @@ def solve(i, j):
     global dp
     global s1
     global s2
-    for i in range(l1):
-        for j in range(l2):
-            if s1[i] == s2[j]:
-                dp[i+1][j+1] = dp[i][j] + 1
+    for i in range(1, l1+1):
+        for j in range(1, l2+1):
+            if s1[i-1] == s2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
             else:
-                dp[i+1][j+1] = max(dp[i+1][j], dp[i][j+1])
+                dp[i][j] = max(dp[i][j-1], dp[i-1][j])
 
 
 s1 = input()
