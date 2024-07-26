@@ -1,4 +1,4 @@
-def solve(i, j):
+def solve():
     global dp
     global s1
     global s2
@@ -15,5 +15,5 @@ s2 = input()
 l1 = len(s1)
 l2 = len(s2)
 dp = [[0 for _ in range(l2+1)] for _ in range(l1+1)]
-solve(0, 0)
+solve()
 print(dp[l1][l2])
