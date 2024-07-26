@@ -1,4 +1,8 @@
 def cnt_line(row):
+    try:
+        return dp[''.join(row)]
+    except:
+        pass
     ans = 1
     prev = row[0]
     tmp = 1
@@ -9,6 +13,7 @@ def cnt_line(row):
             prev = row[i]
             tmp = 1
         ans = max(ans, tmp)
+    dp[''.join(row)] = ans
     return ans
 
 
@@ -25,7 +30,6 @@ def find_longest(y, x):
         if board[ny][nx] == board[y][x]:
             continue
         board[ny][nx], board[y][x] = board[y][x], board[ny][nx]
-        # find longest
         tmp = 0
         board_t = list(zip(*board))
         for row in range(N):
@@ -39,12 +43,11 @@ def find_longest(y, x):
 
 N = int(input())
 board = []
+dp = dict()
 for i in range(N):
     board.append(list(input()))
-###
 ans = 0
 for i in range(N):
     for j in range(N):
         ans = max(ans, find_longest(i, j))
-###
 print(ans)
