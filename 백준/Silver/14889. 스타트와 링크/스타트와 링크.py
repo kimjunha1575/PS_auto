@@ -5,6 +5,7 @@ def build_team(idx, t1, t2):
         tmp2 = 0
         for i in range(N//2):
             for j in range(N//2):
+                if i == j: continue
                 tmp1 += board[team1[i]][team1[j]]
                 tmp2 += board[team2[i]][team2[j]]
         ans = min(ans, abs(tmp1 - tmp2))
