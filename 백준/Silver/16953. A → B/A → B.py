@@ -2,24 +2,18 @@ from collections import deque
 
 
 def bfs():
-    visited = dict()
     que = deque()
-    que.append(A)
-    visited[A] = 0
+    que.append((A, 1))
     while que:
         cur = que.popleft()
-        if cur > B:
+        value = cur[0]
+        cnt = cur[1]
+        if value > B:
             continue
-        if cur == B:
-            return visited[cur] + 1
-        tmp = cur * 2
-        if visited.get(tmp) is None:
-            que.append(tmp)
-            visited[tmp] = visited[cur] + 1
-        tmp = 10 * cur + 1
-        if visited.get(tmp) is None:
-            que.append(tmp)
-            visited[tmp] = visited[cur] + 1
+        if value == B:
+            return cnt
+        que.append((value * 2, cnt + 1))
+        que.append((10 * value + 1, cnt + 1))
     return -1
 
 
