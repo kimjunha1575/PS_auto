@@ -1,11 +1,13 @@
 #include <iostream>
+#include <algorithm>
+#include <vector>
 #include <queue>
 #include <stack>
 using namespace std;
 
 int V, E;
 int start;
-int graph[1001][1001];
+vector<int> graph[1001];
 int visited[1001];
 
 
@@ -14,8 +16,11 @@ void init() {
     for (int i = 0; i < E; i++) {
         int from, to;
         cin >> from >> to;
-        graph[from][to] = 1;
-        graph[to][from] = 1;
+        graph[from].push_back(to);
+        graph[to].push_back(from);
+    }
+    for (int i = 1; i <= V; i++) {
+        sort(graph[i].begin(), graph[i].end());
     }
 }
 
@@ -33,22 +38,20 @@ void bfs(int start) {
         int cur = que.front();
         que.pop();
         printf("%d ", cur);
-        for (int i = 1; i <= V; i++) {
-            if (graph[cur][i] == 0) continue;
-            if (visited[i]) continue;
-            que.push(i);
-            visited[i] = 1;
+        for (int vertex : graph[cur]) {
+            if (visited[vertex]) continue;
+            que.push(vertex);
+            visited[vertex] = 1;
         }
     }
 }
 
 void dfs(int cur) {
     printf("%d ", cur);
-    for (int i = 1; i <= V; i++) {
-        if (graph[cur][i] == 0) continue;
-        if (visited[i]) continue;
-        visited[i] = 1;
-        dfs(i);
+    for (int vertex : graph[cur]) {
+        if (visited[vertex]) continue;
+        visited[vertex] = 1;
+        dfs(vertex);
     }
 }
 
@@ -59,5 +62,6 @@ int main(void) {
     printf("\n");
     clear();
     bfs(start);
+    printf("\n");
     return 0;
 }
