@@ -14,7 +14,8 @@ def render_areas():
         tmp = acc
         for c in range(N+1):
             if c > 0:
-                tmp += sum(board_t[c][:r+1])
+                tmp += areas[r-1][c] + board[r][c]
+                tmp -= areas[r-1][c-1]
             areas[r][c] = tmp
 
 
