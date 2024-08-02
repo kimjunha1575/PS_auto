@@ -10,13 +10,9 @@ def get_area(position):
 # 누적합 배열 생성
 def render_prefix():
     global areas
-    acc = board[0][0]
     for r in range(1, N+1):
-        acc += board[r][0]
-        tmp = acc
         for c in range(1, N+1):
-            tmp += areas[r-1][c] - areas[r-1][c-1] + board[r][c]
-            areas[r][c] = tmp
+            areas[r][c] = board[r][c] + areas[r-1][c] + areas[r][c-1] - areas[r-1][c-1]
 
 
 # 입력
