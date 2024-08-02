@@ -18,11 +18,10 @@ while que:
     targets = [cur_position - 1, cur_position + 1, cur_position * 2]
     for target in targets:
         if target < 0: continue
-        if target > max(N, K) * 2 + 1: continue
+        if target > min(100000, max(N, K) * 2): continue
         if visited.get(target) is not None and cur_time + 1 > visited[target]: continue
         if visited.get(target) is None:
             visited[target] = cur_time+1
         que.append((target, cur_time + 1))
 print(fastest_time)
 print(ans.count(fastest_time))
-
