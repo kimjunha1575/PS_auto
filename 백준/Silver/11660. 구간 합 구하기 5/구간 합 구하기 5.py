@@ -9,13 +9,11 @@ def render_areas():
     global areas
     acc = board[0][0]
     for r in range(N+1):
-        if r > 0:
-            acc += board[r][0]
+        acc += board[r][0]
         tmp = acc
         for c in range(N+1):
-            if c > 0:
-                tmp += areas[r-1][c] + board[r][c]
-                tmp -= areas[r-1][c-1]
+            tmp += areas[r-1][c] + board[r][c]
+            tmp -= areas[r-1][c-1]
             areas[r][c] = tmp
 
 
@@ -24,8 +22,7 @@ N, M = map(int, input().split())
 board = [[0] * (N+1)] # 좌표 계산을 쉽게 하기 위해 0으로 채운 행과 열 추가함
 for _ in range(N):
     board.append([0] + list(map(int, input().split())))
-board_t = list(zip(*board))
-targets = [list(map(int, input().split())) for i in range(M)]
+targets = [list(map(int, input().split())) for _ in range(M)]
 areas = [[0] * (N+1) for _ in range(N+1)] # 부분합을 저장할 행렬
 render_areas()
 
