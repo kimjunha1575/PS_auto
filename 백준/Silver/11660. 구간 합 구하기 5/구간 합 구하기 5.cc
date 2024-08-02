@@ -1,10 +1,14 @@
 #include <iostream>
 using namespace std;
 
+struct Part {
+    int x1, y1, x2, y2;
+};
+
 int N, M;
 int board[1025][1025];
 int acc[1025][1025];
-pair<pair<int, int>, pair<int, int>> queries[100000];
+Part queries[100000];
 
 void init() {
     cin >> N >> M;
@@ -16,15 +20,15 @@ void init() {
     }
     for (int i = 0; i < M; i++) {
         int x1, y1, x2, y2;
-        cin >> x1 >> y1 >> x2 >> y2;
-        queries[i] = make_pair(make_pair(x1, y1), make_pair(x2, y2));
+        cin >> y1 >> x1 >> y2 >> x2;
+        queries[i] = Part({x1, y1, x2, y2});
     }
 }
 
 int main(void) {
     init();
     for (int i = 0; i < M; i++) {
-        pair<pair<int, int>, pair<int, int>> query = queries[i];
-        printf("%d\n", acc[query.second.first][query.second.second] - acc[query.first.first-1][query.second.second] - acc[query.second.first][query.first.second-1] + acc[query.first.first-1][query.first.second-1]);
+        Part query = queries[i];
+        printf("%d\n", acc[query.y2][query.x2] - acc[query.y1-1][query.x2] - acc[query.y2][query.x1-1] + acc[query.y1-1][query.x1-1]);
     }
 }
