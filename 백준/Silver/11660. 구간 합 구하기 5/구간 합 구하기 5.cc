@@ -23,8 +23,8 @@ void init() {
 
 int main(void) {
     init();
-    for (pair<pair<int, int>, pair<int, int>> query : queries) {
-        if (query.first.first == 0) break;
+    for (int i = 0; i < M; i++) {
+        pair<pair<int, int>, pair<int, int>> query = queries[i];
         printf("%d\n", acc[query.second.first][query.second.second] - acc[query.first.first-1][query.second.second] - acc[query.second.first][query.first.second-1] + acc[query.first.first-1][query.first.second-1]);
     }
 }
