@@ -26,9 +26,11 @@ void init() {
 }
 
 int main(void) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
     init();
     for (int i = 0; i < M; i++) {
         Part query = queries[i];
-        printf("%d\n", acc[query.y2][query.x2] - acc[query.y1-1][query.x2] - acc[query.y2][query.x1-1] + acc[query.y1-1][query.x1-1]);
+        cout << acc[query.y2][query.x2] - acc[query.y1-1][query.x2] - acc[query.y2][query.x1-1] + acc[query.y1-1][query.x1-1] << '\n';
     }
 }
