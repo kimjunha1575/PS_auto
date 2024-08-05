@@ -7,10 +7,10 @@ for case in range(1, T+1):
         parent, child = map(int, input().split())
         tree[child] = parent
     target1, target2 = map(int, input().split())
-    parents_of_target1 = []
+    parents_of_target1 = set()
     v = target1
     while v:
-        parents_of_target1.append(v)
+        parents_of_target1.add(v)
         parent = tree[v]
         v = parent
     v = target2
