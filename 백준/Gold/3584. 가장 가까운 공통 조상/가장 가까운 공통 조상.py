@@ -11,8 +11,7 @@ for case in range(1, T+1):
     v = target1
     while v:
         parents_of_target1.add(v)
-        parent = tree[v]
-        v = parent
+        v = tree[v]
     v = target2
     while v not in parents_of_target1:
         v = tree[v]
