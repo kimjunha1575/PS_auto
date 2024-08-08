@@ -4,7 +4,7 @@ from collections import deque
 def validate():
     que = deque()
     visited = [[0] * 5 for _ in range(5)]
-    sr, sc = group[0]
+    sr, sc = group[-1]
     visited[sr][sc] = 1
     que.append((sr, sc))
     cnt = 0
