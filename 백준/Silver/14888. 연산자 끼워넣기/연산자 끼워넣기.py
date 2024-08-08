@@ -1,42 +1,36 @@
-def solve(idx):
-    global operators
-    global combination
-    global ans_max
-    global ans_min
-    if idx == N - 1:
-        tmp = arr[0]
-        for i in range(N-1):
-            operator = combination[i]
-            operand = arr[i+1]
-            if operator == 0:
-                tmp += operand
-            elif operator == 1:
-                tmp -= operand
-            elif operator == 2:
-                tmp *= operand
-            else:
-                if tmp < 0 < operand:
-                    tmp = -((-tmp)//operand)
-                else:
-                    tmp //= operand
-        ans_max = max(ans_max, tmp)
-        ans_min = min(ans_min, tmp)
-        return None
-    for i in range(len(operators)):
-        if operators[i] == 0: continue
-        combination[idx] = i
-        operators[i] -= 1
-        solve(idx + 1)
-        operators[i] += 1
-    return None
+def calc(idx, acc, operator):
+    cur = numbers[idx+1]
+    if operator == 0:
+        return acc + cur
+    elif operator == 1:
+        return acc - cur
+    elif operator == 2:
+        return acc * cur
+    else:
+        if acc < 0 < cur:
+            return - (-acc // cur)
+        return acc // cur
+
+
+def solve(cnt, acc):
+    if cnt == N-1:
+        global ans_max
+        global ans_min
+        ans_max = max(ans_max, acc)
+        ans_min = min(ans_min, acc)
+        return
+    for operator in range(len(operators)):
+        if operators[operator] == 0: continue
+        operators[operator] -= 1
+        solve(cnt + 1, calc(cnt, acc, operator))
+        operators[operator] += 1
 
 
 N = int(input())
-arr = list(map(int, input().split()))
+numbers = list(map(int, input().split()))
 operators = list(map(int, input().split()))
-ans_max = -1000000000
-ans_min = 1000000000
-combination = [None] * (N - 1)
-solve(0)
+ans_max = -1_000_000_000
+ans_min = 1_000_000_000
+solve(0, numbers[0])
 print(ans_max)
 print(ans_min)
