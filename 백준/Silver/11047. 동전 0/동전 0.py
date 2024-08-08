@@ -6,8 +6,9 @@ cur = 0
 cur_idx = 0
 while cur <= K:
     if cur + prices[cur_idx] <= K:
-        cur += prices[cur_idx]
-        cnt += 1
+        tmp = (K - cur) // prices[cur_idx]
+        cur += tmp * prices[cur_idx]
+        cnt += tmp
         if cur == K:
             break
     else:
