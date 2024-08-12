@@ -1,14 +1,15 @@
 import heapq
-import sys
 
 
-N = int(sys.stdin.readline())
+N = int(input())
 pq = []
+commands = []
 for _ in range(N):
-    ipt = int(sys.stdin.readline())
-    if ipt:
-        heapq.heappush(pq, ipt)
-    elif pq:
+    commands.append(int(input()))
+for command in commands:
+    if command:
+        heapq.heappush(pq, command)
+    elif len(pq):
         print(heapq.heappop(pq))
     else:
         print(0)
