@@ -2,22 +2,14 @@ from collections import deque
 
 
 N = int(input())
-que = deque()
-visited = [0] * (N + 1)
-que.append((1, 1))
-visited[1] = 1
-ans = 0
-while que:
-    value, steps = que.popleft()
-    if value == N:
-        ans = steps - 1
-        break
-    targets = [value + 1, value * 2, value * 3]
-    for target in targets:
-        if target > N: continue
-        if visited[target]: continue
-        que.append((target, steps + 1))
-        visited[target] = 1
+dp = [0, 1] + [0] * N
+for i in range(2, N + 1):
+    res = 1_000_000_000
+    if not i % 3:
+        res = min(res, dp[i//3] + 1)
+    if not i % 2:
+        res = min(res, dp[i//2] + 1)
+    res = min(res, dp[i-1] + 1)
+    dp[i] = res
 
-
-print(ans)
+print(dp[N] - 1)
