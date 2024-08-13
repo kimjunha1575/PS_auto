@@ -1,6 +1,3 @@
-from collections import deque
-
-
 N = int(input())
 dp = [0, 1] + [0] * N
 for i in range(2, N + 1):
