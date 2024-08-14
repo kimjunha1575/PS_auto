@@ -19,19 +19,26 @@ def get_sum(one, two, three, four):
 def is_occupied(one, two, three, four):
     return board_list[one] and board_list[two] and board_list[three] and board_list[four]
 
+
 def is_possible():
-    if get_sum(1, 2, 3, 4) > 26: return False
-    if is_occupied(1, 2, 3, 4) and get_sum(1, 2, 3, 4) != 26: return False
-    if get_sum(0, 2, 5, 7) > 26: return False
-    if is_occupied(0, 2, 5, 7) and get_sum(0, 2, 5, 7) != 26: return False
-    if get_sum(0, 3, 6, 10) > 26: return False
-    if is_occupied(0, 3, 6, 10) and get_sum(0, 3, 6, 10) != 26: return False
-    if get_sum(7, 8, 9, 10) > 26: return False
-    if is_occupied(7, 8, 9, 10) and get_sum(7, 8, 9, 10) != 26: return False
-    if get_sum(1, 5, 8, 11) > 26: return False
-    if is_occupied(1, 5, 8, 11) and get_sum(1, 5, 8, 11) != 26: return False
-    if get_sum(4, 6, 9, 11) > 26: return False
-    if is_occupied(4, 6, 9, 11) and get_sum(4, 6, 9, 11) != 26: return False
+    tmp = get_sum(1, 2, 3, 4)
+    if tmp > 26: return False
+    if is_occupied(1, 2, 3, 4) and tmp != 26: return False
+    tmp = get_sum(0, 2, 5, 7)
+    if tmp > 26: return False
+    if is_occupied(0, 2, 5, 7) and tmp != 26: return False
+    tmp = get_sum(0, 3, 6, 10)
+    if tmp > 26: return False
+    if is_occupied(0, 3, 6, 10) and tmp != 26: return False
+    tmp = get_sum(7, 8, 9, 10)
+    if tmp > 26: return False
+    if is_occupied(7, 8, 9, 10) and tmp != 26: return False
+    tmp = get_sum(1, 5, 8, 11)
+    if tmp > 26: return False
+    if is_occupied(1, 5, 8, 11) and tmp != 26: return False
+    tmp = get_sum(4, 6, 9, 11)
+    if tmp > 26: return False
+    if is_occupied(4, 6, 9, 11) and tmp != 26: return False
     return True
 
 
