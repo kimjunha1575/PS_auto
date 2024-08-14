@@ -1,17 +1,17 @@
+'''
+0부터 총 예산까지의 예산 중 가능한 최대 예산을 이진탐색
+'''
+
+
 def is_possible(budget):
-    left = 0
-    right = len(budgets) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if budgets[mid] < budget:
-            left = mid + 1
+    acc = 0
+    for i in range(N):
+        if budgets[i] < budget:
+            acc += budgets[i]
         else:
-            right = mid - 1
-    if not left >= len(budgets):
-        idx = left
-    else:
-        idx = right
-    return sum(budgets[:idx]) + budget * (len(budgets) - idx) <= limit
+            acc += (N - i) * budget
+            break
+    return acc <= limit
 
 
 def binary_search():
