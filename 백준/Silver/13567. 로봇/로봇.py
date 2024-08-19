@@ -1,4 +1,5 @@
-
+import sys
+input = sys.stdin.readline
 M, n = map(int, input().split())
 commands = []
 for _ in range(n):
