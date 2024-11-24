@@ -46,8 +46,10 @@ int solve() {
                 const int nc = cc + dc * m;
                 if (nr < 0 || nc < 0 || nr >= height || nc >= width) break;
                 if (map[nr][nc] == '#') break;
-                if (visited[nr][nc] > 0 && visited[nr][nc] <= visited[cr][cc]) break;
-                if (visited[nr][nc] > 0 && visited[nr][nc] == visited[cr][cc] + 1) continue;
+                if (visited[nr][nc]) {
+                    if (visited[nr][nc] <= visited[cr][cc]) break;
+                    continue;
+                }
                 que.emplace(nr, nc);
                 visited[nr][nc] = visited[cr][cc] + 1;
             }
