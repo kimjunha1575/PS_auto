@@ -10,6 +10,8 @@ vector<vector<int>> to;
 
 int main(void) {
     // freopen("input.txt", "rt", stdin);
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
     cin >> N >> M;
     cnt.resize(N + 1, 0);
     to.resize(N + 1);
