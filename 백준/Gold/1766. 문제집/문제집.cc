@@ -3,56 +3,35 @@
 #include <set>
 using namespace std;
 
-struct Node {
-    int in;
-    vector<int> to;
-};
-
-vector<Node> nodes;
-
-struct cmp {
-    bool operator()(const int& a, const int& b) const {
-        if (nodes[a].in < nodes[b].in)
-            return true;
-        if (nodes[a].in == nodes[b].in)
-            return a < b;
-        return false;
-    } 
-};
-
+priority_queue<int, vector<int>, greater<int>> cand;
 int N, M;
-set<int, cmp> probSet;
-
-void checkSet() {
-    for (auto it = probSet.begin(); it != probSet.end(); it++) {
-        printf("%d(%d) ", *it, nodes[*it].in);
-    }
-    cout << "\n";
-}
+vector<int> cnt;
+vector<vector<int>> to;
 
 int main(void) {
     // freopen("input.txt", "rt", stdin);
     cin >> N >> M;
-    nodes.resize(N + 1);
+    cnt.resize(N + 1, 0);
+    to.resize(N + 1);
     for (int i = 0; i < M; i++) {
         int a, b;
         cin >> a >> b;
-        nodes[b].in++;
-        nodes[a].to.emplace_back(b);
+        cnt[b]++;
+        to[a].emplace_back(b);
     }
     for (int i = 1; i <= N; i++) {
-        probSet.emplace(i);
+        if (cnt[i] == 0) {
+            cand.emplace(i);
+        }
     }
-    while (!probSet.empty()) {
-        int curNum = *probSet.begin();
-        cout << curNum << " ";
-        Node& curNode = nodes[curNum];
-        probSet.erase(curNum);
-        for (int i = 0; i < curNode.to.size(); i++) {
-            int nxt = curNode.to[i];
-            probSet.erase(nxt);
-            nodes[nxt].in--;
-            probSet.emplace(nxt);
+    while (!cand.empty()) {
+        int cur = cand.top();
+        cand.pop();
+        cout << cur << " ";
+        for (int i = 0; i < to[cur].size(); i++) {
+            if (--cnt[to[cur][i]] == 0) {
+                cand.emplace(to[cur][i]);
+            }
         }
     }
     return 0;
